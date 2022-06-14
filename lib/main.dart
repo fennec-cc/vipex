@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vipex/views/explorer/explorer_view.dart';
 import 'package:vipex/views/header_view.dart';
+import 'package:vipex/views/header_view_controller.dart';
 import 'package:vipex/views/viewer/viewer_view.dart';
 
 void main() {
@@ -50,12 +51,19 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ExplorerView(display: true,),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    ViewerView(),
-                  ],
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  alignment: Alignment(HeaderViewController.instance.displayExplorer ? -1 : 1, 0),
+                  child: ExplorerView(
+                    display: HeaderViewController.instance.displayExplorer,
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    color: Colors.deepOrangeAccent,
+                    alignment: Alignment.center,
+                    child: Text("MIDDLE"),
+                  ),
                 ),
               ],
             ),

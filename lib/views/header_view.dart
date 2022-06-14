@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vipex/views/header_view_controller.dart';
 
 class HeaderView extends StatelessWidget {
   const HeaderView({Key? key}) : super(key: key);
@@ -6,21 +7,16 @@ class HeaderView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.yellow,
+      // color: Colors.yellow,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          TextButton(
-            child: Text("BUTTON"),
-            onPressed: () => {},
-          ),
           IconButton(
-            onPressed: () => {},
-            icon: const Icon(Icons.view_sidebar_sharp),
-            // icon: Transform.scale(
-            //   scaleX: -1,
-            //   child: const Icon(Icons.view_sidebar_sharp),
-            // ),
+            onPressed: () => {HeaderViewController.instance.toggleDisplayExplorer()},
+            icon: Transform.scale(
+              scaleX: -1,
+              child: const Icon(Icons.view_sidebar_sharp),
+            ),
             color: Colors.white,
           ),
           const Text(
@@ -31,7 +27,7 @@ class HeaderView extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () => {},
+            onPressed: () => {HeaderViewController.instance.toggleDisplayExplorer()},
             icon: const Icon(Icons.view_sidebar),
             color: Colors.white,
           ),
