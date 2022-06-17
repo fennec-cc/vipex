@@ -5,9 +5,9 @@ class ViewerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Center(
       child: Container(
-        width: 400,
+        alignment: Alignment.center,
         color: Colors.green,
         child: Column(
           children: const [

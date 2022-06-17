@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vipex/views/explorer/explorer_view.dart';
 import 'package:vipex/views/header_view.dart';
@@ -40,33 +43,45 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+
+    Timer(const Duration(milliseconds: 0), () => _animationController.forward());
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
           const HeaderView(),
-          Center(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 500),
-                  alignment: Alignment(HeaderViewController.instance.displayExplorer ? -1 : 1, 0),
-                  child: ExplorerView(
-                    display: HeaderViewController.instance.displayExplorer,
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    color: Colors.deepOrangeAccent,
-                    alignment: Alignment.center,
-                    child: Text("MIDDLE"),
-                  ),
-                ),
-              ],
-            ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ExplorerView(
+                animationController: _animationController,
+              ),
+              const Expanded(
+                child: ViewerView(),
+              ),
+            ],
           ),
         ],
       ),
